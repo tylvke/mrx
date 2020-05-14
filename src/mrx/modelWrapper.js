@@ -1,8 +1,8 @@
-export const firstUpperCase = (str) => {
+const firstUpperCase = (str) => {
   return str.replace(/^\S/, (s) => s.toUpperCase());
 };
 
-export const modelWrapper = ({
+const modelWrapper = ({
   namespace,
   state = {},
   actions = {},
@@ -25,7 +25,6 @@ export const modelWrapper = ({
         } catch (err) {
           throw err;
         }
-
       },
       async handle({ payload, action }) {
         try {
@@ -48,3 +47,4 @@ export const modelWrapper = ({
     },
   };
 };
+export default modelWrapper;
