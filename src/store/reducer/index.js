@@ -1,7 +1,5 @@
-import todos from './todos'
-import counter from './counter'
+import user from './user'
 
 export default {
-  todos,
-  counter
+  user
 }

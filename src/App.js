@@ -1,41 +1,60 @@
 import React from "react";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from "react-router-dom";
-import Home from './Home'
-import About from './About'
-export default function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+import { connect } from "react-redux";
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Switch>
+class App extends React.Component {
+  async getDetail() {
+    const { dispatch } = this.props;
+    try{
+      await dispatch({
+        type: "user/fetch",
+        dataType: "detail",
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  async changeName() {
+    const { dispatch } = this.props;
+    const payload = document.getElementById("input").value;
+    try{
+      const res= await dispatch({
+        type: "user/handle",
+        action: "add",
+        payload,
+      });
+      await this.getDetail();
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  componentDidMount() {
+    this.getDetail();
+  }
+
+  render() {
+    const {
+      user: {
+        detail: { username },
+      },
+    } = this.props;
+    return (
+      <div>
+        <span>{username}</span>
+        <br />
+        <input id="input" />
+        <button
+          onClick={() => {
+            this.changeName();
+          }}
+        >
+          改变名字
+        </button>
       </div>
-    </Router>
-  );
+    );
+  }
 }
+export default connect(({ user }) => ({
+  user,
+}))(App);
