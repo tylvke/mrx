@@ -29,6 +29,24 @@ class App extends React.Component {
     }
   }
 
+  async open() {
+    const { dispatch } = this.props;
+    await dispatch({
+      type: "tag/handle",
+      action: "sign",
+    });
+    await dispatch({
+      type: "global/fetch",
+      dataType: "authorize",
+    });
+    await dispatch({
+      type: "tag/handle",
+      action: "open",
+      payload: {tagId: 1},
+    });
+    alert('开通成功');
+  }
+
   componentDidMount() {
     this.getDetail();
   }
@@ -50,6 +68,13 @@ class App extends React.Component {
           }}
         >
           改变名字
+        </button>
+        <button
+          onClick={() => {
+            this.open();
+          }}
+        >
+          开通金字招牌
         </button>
       </div>
     );

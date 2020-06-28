@@ -7,4 +7,10 @@ export default createModel(API, {
       username: "",
     }
   },
+  effects:{
+    async delete(){
+      const res= await API.delete();
+      return res;
+    }
+  }
 })

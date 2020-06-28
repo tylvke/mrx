@@ -27,4 +27,14 @@ export default {
       }, 300);
     });
   },
+  delete() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          code: 0,
+          msg: "success",
+        });
+      }, 300);
+    });
+  }
 };
