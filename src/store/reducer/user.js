@@ -1,8 +1,10 @@
-export default {
-  namespace: "user",
+import { createModel } from '../../mrx';
+import API from '../../api/user';
+
+export default createModel(API, {
   state: {
     detail:{
       username: "",
     }
   },
-};
+})
