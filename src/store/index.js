@@ -1,7 +1,7 @@
 import models from "./reducer";
-import mrx, { modelWrapper } from '../mrx';
+import mrx, { createModel } from '../mrx';
 // 统一逻辑
 for (const key in models) {
-    models[key] = modelWrapper(models[key]);
+    models[key] = createModel(models[key]);
   }
 export default mrx(models);

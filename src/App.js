@@ -5,7 +5,7 @@ class App extends React.Component {
   async getDetail() {
     const { dispatch } = this.props;
     try{
-      await dispatch({
+      dispatch({
         type: "user/fetch",
         dataType: "detail",
       })

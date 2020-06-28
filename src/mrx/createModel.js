@@ -2,22 +2,23 @@ const firstUpperCase = (str) => {
   return str.replace(/^\S/, (s) => s.toUpperCase());
 };
 
-const modelWrapper = ({
+const createModel = ({
   namespace,
   state = {},
-  actions = {},
+  effects = {},
   reducers = {},
 }) => {
   const API = require(`../api/${namespace}`).default;
+  const originState = Object.assign({},state);
   return {
     state: {
       ...state,
     },
-    actions: {
-      async fetch({ payload, dataType }, { commit, getState }) {
+    effects: {
+      async fetch({ payload, dataType }, { put, getState }) {
         try {
           const res = await API[`get${firstUpperCase(dataType)}`](payload);
-          commit("save", {
+          put("save", {
             dataType,
             payload: res.data,
           });
@@ -34,7 +35,7 @@ const modelWrapper = ({
           throw err;
         }
       },
-      ...actions,
+      ...effects,
     },
     reducers: {
       save(state, { payload, dataType }) {
@@ -43,8 +44,13 @@ const modelWrapper = ({
           ...state,
         };
       },
+      clear(){
+        return{
+          ...originState,
+        }
+      },
       ...reducers,
     },
   };
 };
-export default modelWrapper;
+export default createModel;

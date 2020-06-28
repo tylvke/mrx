@@ -1,7 +1,7 @@
 import mrx from './mrx';
-import modelWrapper from './modelWrapper';
+import createModel from './createModel';
 
 export default mrx;
 export {
-    modelWrapper,
+    createModel,
 }
