@@ -47,8 +47,33 @@ class App extends React.Component {
     alert('开通成功');
   }
 
+  async isGuide(){
+    
+  }
+
+  async init() {
+    const { dispatch } = this.props;
+    const [auth, guide] = await Promise.all([
+      dispatch({
+        type: "global/fetch",
+        dataType: "authorize",
+      }),
+      dispatch({
+        type: "guide/fetch",
+        dataType: "guideState",
+      }),
+    ]);
+    console.log(auth, guide);
+    if(auth.protocol===0 && guide.version === 2){
+      console.log('跳转');
+      return;
+    }else{
+      this.getDetail();
+    }
+  }
+
   componentDidMount() {
-    this.getDetail();
+    this.init();    
   }
 
   render() {

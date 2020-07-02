@@ -1,16 +1,16 @@
 export default {
-    getAuthorize() {
+    getGuideState() {
       return new Promise((resolve,reject) => {
+        console.log('guide')
         setTimeout(() => {
-          console.log('authorize')
           resolve({
             data: {
-                protocol: 1,
+              version: 2,
             },
             code: 0,
             msg: "success",
           });
-        }, 500);
+        }, 100);
       });
     },
   };
