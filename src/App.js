@@ -8,6 +8,7 @@ class App extends React.Component {
       dispatch({
         type: "user/fetch",
         dataType: "detail",
+        payload: { id: 1 },
       })
     }catch(err){
       console.log(err);
@@ -18,7 +19,7 @@ class App extends React.Component {
     const { dispatch } = this.props;
     const payload = document.getElementById("input").value;
     try{
-      const res= await dispatch({
+      await dispatch({
         type: "user/handle",
         action: "add",
         payload,
@@ -45,10 +46,6 @@ class App extends React.Component {
       payload: {tagId: 1},
     });
     alert('开通成功');
-  }
-
-  async isGuide(){
-    
   }
 
   async init() {
